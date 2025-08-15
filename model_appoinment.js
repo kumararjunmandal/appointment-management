@@ -95,6 +95,6 @@ const AppointmentSchema = mongoose.Schema(
     }
 )
 
-const Doctors = mongoose.model("Doctor", AppointmentSchema,"appointment")
+const Doctors = mongoose.model("Doctor", AppointmentSchema, "appointment")
 
 module.exports = Doctors
