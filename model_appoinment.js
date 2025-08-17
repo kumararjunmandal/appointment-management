@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const AppointmentSchema = mongoose.Schema(
     {
-        id: {
+        _id: {
             type: String,
             required: true
         },
@@ -18,83 +18,21 @@ const AppointmentSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        slots: {
-            type: Array,
-            items: [
-                {
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    },
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    },
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    },
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    },
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    },
-                    type: Object,
-                    properties: {
-                        time: {
-                            type: String,
-                            required: true
-                        },
-                        available: {
-                            type: Boolean,
-                            required: true
-                        }
-                    }
-
-                }
-            ]
-        }
-    }
+        slots: [
+            {
+                time: {
+                    type: String,
+                    required: true,
+                },
+                available: {
+                    type: Boolean,
+                    required: true,
+                },
+            }
+        ]
+    }, { _id: false, versionKey: false }
 )
 
-const Doctors = mongoose.model("Doctor", AppointmentSchema, "appointment")
+const Doctor = mongoose.model("Doctor", AppointmentSchema, "appointment")
 
-module.exports = Doctors
+module.exports = Doctor
