@@ -23,6 +23,7 @@ mongoose.connect(uri)
         console.error("Connection failed", err)
     })
 
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 

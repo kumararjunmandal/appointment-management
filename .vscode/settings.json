@@ -1,11 +1,11 @@
 {
-  "editor.fontSize": 16,
-  "editor.fontWeight": "700",
+  "editor.fontSize": 15,
+  "editor.fontWeight": 500,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "editor.fontFamily": "'FoundationOne'',Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'fira code'",
   "editor.indentSize": 4
 }

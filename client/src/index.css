@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+@font-face {
+  font-family: 'FoundationTitlesHand', sans-serif;
+  src: url(./assets/font/FoundationTitlesHand-v0.85.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  color: white;
+  background-color: #414141;
+  /* background-color: #0f172a; */
+  font-family: 'FoundationTitlesHand', sans-serif;
+  line-height: 1.7;
+}
