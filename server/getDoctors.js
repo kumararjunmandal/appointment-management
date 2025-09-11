@@ -1,9 +1,13 @@
 const express = require("express")
+const cors = require("cors")
 const mongoose = require("mongoose")
-const Doctor = require("./model_appoinment")
+const Doctor = require("./models/appoinment")
 
 const app = express()
 const port = 8000
+
+app.use(cors());
+
 
 // MongoDB connection details
 const dbName = "doctors_data"
@@ -11,17 +15,17 @@ const uri = `mongodb+srv://arjunmcan:1G0ikKPyL5Frmvzr@cluster0.cx1wg1f.mongodb.n
 
 // Connect to MongoDB
 mongoose.connect(uri)
-    .then(() => {
-        console.log("Connected to DB")
+  .then(() => {
+    console.log("Connected to DB")
 
-        // Start server only after DB connection
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`)
-        })
+    // Start server only after DB connection
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`)
     })
-    .catch((err) => {
-        console.error("Connection failed", err)
-    })
+  })
+  .catch((err) => {
+    console.error("Connection failed", err)
+  })
 
 
 app.use(express.urlencoded({ extended: true }))
@@ -31,9 +35,9 @@ app.use(express.json());
 app.get("/appointments", async (req, res) => {
 
 
-    try {
-        const doctors = await Doctor.find().sort({ _id: 1 });
-        const html = `
+  try {
+    const doctors = await Doctor.find().sort({ _id: 1 });
+    const html = `
   <div>
     <style>
       body {
@@ -97,25 +101,25 @@ app.get("/appointments", async (req, res) => {
   </div>  
 `
 
-        res.send(html);
-    } catch (error) {
-        console.error("Error fetching doctors:", error);
-        res.status(500).send("Error fetching doctors");
-    }
+    res.send(html);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).send("Error fetching doctors");
+  }
 })
 
 // Route to fetch a single doctor with id
 app.get("/appointments/:id", async (req, res) => {
-    const _id = req.params.id;
+  const _id = req.params.id;
 
-    try {
-        const dr = await Doctor.find({ _id });
+  try {
+    const dr = await Doctor.find({ _id });
 
-        if (dr.length === 0) {
-            return res.status(404).send("Doctor not found");
-        }
+    if (dr.length === 0) {
+      return res.status(404).send("Doctor not found");
+    }
 
-        const html = `
+    const html = `
       <div>
         <style>
           body {
@@ -180,31 +184,30 @@ app.get("/appointments/:id", async (req, res) => {
       </div>
     `;
 
-        res.send(html);
-    } catch (error) {
-        console.error("Error fetching doctors:", error);
-        res.status(500).send("Error fetching doctors");
-    }
+    res.send(html);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).send("Error fetching doctors");
+  }
 });
 
 //POST method works with postman 
 app.post('/modify', async (req, res) => {
-    const body = req.body;
-    let count = await Doctor.countDocuments({}) + 1;
+  const body = req.body;
+  let count = await Doctor.countDocuments({}) + 1;
 
-    try {
-        const newDr = await Doctor.create({
-            _id: `doc_0${count}`,
-            name: body.name,
-            speciality: body.speciality,
-            location: body.location,
-            slots: body.slots
-        });
-
-        console.log(body);
-        return res.status(201).json({ msg: "New Doctor created", doctor: newDr });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Failed to create doctor", "details": err.message });
-    }
+  try {
+    const newDr = await Doctor.create({
+      _id: `doc_0${count}`,
+      name: body.name,
+      speciality: body.speciality,
+      location: body.location,
+      slots: body.slots
+    });
+    console.log(body)
+    return res.status(201).json({ msg: "New Doctor created", doctor: newDr });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Failed to create doctor", "details": err.message });
+  }
 });
